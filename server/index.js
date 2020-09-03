@@ -24,6 +24,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use("/api/users", require("./routes/users"))
+app.use("/api/video", require("./routes/video"))
 
 app.use("/uploads", express.static("uploads"))
 
