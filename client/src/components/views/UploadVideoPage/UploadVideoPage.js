@@ -66,10 +66,12 @@ function UploadVideoPage(props) {
 
 		axios.post("/api/video/uploadVideo", variables).then((response) => {
 			if (response.data.success) {
-				alert("video Uploaded Successfully")
-				props.history.push("/")
+				message.success("video Uploaded Successfully")
+				setTimeout(() => {
+					props.history.push("/")
+				}, 3000)
 			} else {
-				alert("failed to upload video")
+				message.error("failed to upload video")
 			}
 		})
 	}
