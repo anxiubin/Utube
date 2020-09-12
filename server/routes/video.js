@@ -84,4 +84,24 @@ router.post("/uploadVideo", (req, res) => {
 	})
 })
 
+// 비디오 리스트 가져오기
+router.get("/getVideos", (req, res) => {
+	Video.find()
+		.populate("writer")
+		.exec((err, videos) => {
+			if (err) return res.status(400).send(err)
+			res.status(200).json({ success: true, videos })
+		})
+})
+
+// 비디오 디테일 정보 가져오기
+router.post("/getVideo", (req, res) => {
+	Video.findOne({ _id: req.body.videoId })
+		.populate("writer")
+		.exec((err, video) => {
+			if (err) return res.status(400).send(err)
+			res.status(200).json({ success: true, video })
+		})
+})
+
 module.exports = router
