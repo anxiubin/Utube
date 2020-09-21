@@ -8,6 +8,37 @@ function Subscriber(props) {
 	const [SubscribeNumber, setSubscribeNumber] = useState(0)
 	const [Subscribed, setSubscribed] = useState(false)
 
+	const onClickSubscribe = () => {
+		let subscribeVariables = {
+			userTo: userTo,
+			userFrom: userFrom,
+		}
+
+		if (Subscribed) {
+			axios
+				.post("/api/subscribe/unSubscribe", subscribeVariables)
+				.then((response) => {
+					if (response.data.success) {
+						setSubscribeNumber(SubscribeNumber - 1)
+						setSubscribed(!Subscribed)
+					} else {
+						alert("Failed to unsubscribe")
+					}
+				})
+		} else {
+			axios
+				.post("/api/subscribe/subscribe", subscribeVariables)
+				.then((response) => {
+					if (response.data.success) {
+						setSubscribeNumber(SubscribeNumber + 1)
+						setSubscribed(!Subscribed)
+					} else {
+						alert("Failed to subscribe")
+					}
+				})
+		}
+	}
+
 	useEffect(() => {
 		const subscribeNumberVariables = { userTo: userTo, userFrom: userFrom }
 		axios
@@ -34,6 +65,7 @@ function Subscriber(props) {
 	return (
 		<div>
 			<button
+				onClick={onClickSubscribe}
 				style={{
 					backgroundColor: `${Subscribed ? "#AAAAAA" : "#CC0000"}`,
 					borderRadius: "4px",
