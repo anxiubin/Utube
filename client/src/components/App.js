@@ -2,13 +2,14 @@ import React, { Suspense } from "react"
 import { Route, Switch } from "react-router-dom"
 import Auth from "../hoc/auth"
 // pages for this product
-import LandingPage from "./views/LandingPage/LandingPage.js"
-import LoginPage from "./views/LoginPage/LoginPage.js"
-import RegisterPage from "./views/RegisterPage/RegisterPage.js"
+import LandingPage from "./views/LandingPage/LandingPage"
+import LoginPage from "./views/LoginPage/LoginPage"
+import RegisterPage from "./views/RegisterPage/RegisterPage"
 import NavBar from "./views/NavBar/NavBar"
 import Footer from "./views/Footer/Footer"
 import UploadVideoPage from "./views/UploadVideoPage/UploadVideoPage"
 import VideoDetailPage from "./views/VideoDetailPage/VideoDetailPage"
+import SubscriptionPage from "./views/SubscriptionPage/SubscriptionPage"
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -32,6 +33,11 @@ function App() {
 						exact
 						path="/video/:videoId"
 						component={Auth(VideoDetailPage, null)}
+					/>
+					<Route
+						exact
+						path="/subscription"
+						component={Auth(SubscriptionPage, null)}
 					/>
 				</Switch>
 			</div>

@@ -3,6 +3,7 @@ const router = express.Router()
 
 const { Subscriber } = require("../models/Subscriber")
 
+// 구독자 수 가져오기
 router.post("/subscribeNumber", (req, res) => {
 	Subscriber.find({ userTo: req.body.userTo }).exec((err, subscribe) => {
 		if (err) return res.status(400).send(err)
@@ -11,6 +12,7 @@ router.post("/subscribeNumber", (req, res) => {
 	})
 })
 
+// 특정 유저 구독했는지 판별하기
 router.post("/subscribed", (req, res) => {
 	Subscriber.find({
 		userTo: req.body.userTo,
@@ -24,6 +26,7 @@ router.post("/subscribed", (req, res) => {
 	})
 })
 
+// 구독하기
 router.post("/subscribe", (req, res) => {
 	const subscribe = new Subscriber(req.body)
 
@@ -33,6 +36,7 @@ router.post("/subscribe", (req, res) => {
 	})
 })
 
+// 구독해지하기
 router.post("/unSubscribe", (req, res) => {
 	Subscriber.findOneAndDelete({
 		userTo: req.body.userTo,
