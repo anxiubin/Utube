@@ -15,7 +15,6 @@ function VideoDetailPage(props) {
 	useEffect(() => {
 		axios.post("/api/video/getVideo", videoVariable).then((response) => {
 			if (response.data.success) {
-				console.log(response.data.video)
 				setVideo(response.data.video)
 			} else {
 				alert("Failed to get video Info")
@@ -24,6 +23,10 @@ function VideoDetailPage(props) {
 	}, [])
 
 	if (Video.writer) {
+		const userId = localStorage.getItem("userId")
+		const subscribeButton = Video.writer._id !== userId && (
+			<Subscriber userTo={Video.writer._id} userFrom={userId} />
+		)
 		return (
 			<Row>
 				<Col lg={18} xs={24}>
@@ -37,14 +40,7 @@ function VideoDetailPage(props) {
 							controls
 						></video>
 
-						<List.Item
-							actions={[
-								<Subscriber
-									userTo={Video.writer._id}
-									userFrom={localStorage.getItem("userId")}
-								/>,
-							]}
-						>
+						<List.Item actions={[subscribeButton]}>
 							<List.Item.Meta
 								avatar={<Avatar src={Video.writer && Video.writer.image} />}
 								title={Video.title}
