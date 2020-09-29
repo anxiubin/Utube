@@ -3,10 +3,16 @@ import { List, Avatar, Row, Col } from "antd"
 import axios from "axios"
 import SideVideo from "./sections/SideVideo"
 import Subscriber from "./sections/Subscriber"
+import Comments from "./sections/Comments"
 
 function VideoDetailPage(props) {
 	const videoId = props.match.params.videoId
 	const [Video, setVideo] = useState([])
+	const [CommentLists, setCommentLists] = useState([])
+
+	const updateComment = (newComment) => {
+		setCommentLists(CommentLists.concat(newComment))
+	}
 
 	const videoVariable = {
 		videoId: videoId,
@@ -16,6 +22,15 @@ function VideoDetailPage(props) {
 		axios.post("/api/video/getVideo", videoVariable).then((response) => {
 			if (response.data.success) {
 				setVideo(response.data.video)
+			} else {
+				alert("Failed to get video Info")
+			}
+		})
+
+		axios.post("/api/comment/getComments", videoVariable).then((response) => {
+			if (response.data.success) {
+				console.log("response.data.comments", response.data.comments)
+				setCommentLists(response.data.comments)
 			} else {
 				alert("Failed to get video Info")
 			}
@@ -48,6 +63,12 @@ function VideoDetailPage(props) {
 							/>
 							<div></div>
 						</List.Item>
+
+						<Comments
+							CommentLists={CommentLists}
+							postId={Video._id}
+							refreshFunction={updateComment}
+						/>
 					</div>
 				</Col>
 				<Col lg={6} xs={24}>
