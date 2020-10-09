@@ -4,6 +4,7 @@ import axios from "axios"
 import SideVideo from "./sections/SideVideo"
 import Subscriber from "./sections/Subscriber"
 import Comments from "./sections/Comments"
+import LikeDislikes from "./sections/LikeDislikes"
 
 function VideoDetailPage(props) {
 	const videoId = props.match.params.videoId
@@ -29,7 +30,6 @@ function VideoDetailPage(props) {
 
 		axios.post("/api/comment/getComments", videoVariable).then((response) => {
 			if (response.data.success) {
-				console.log("response.data.comments", response.data.comments)
 				setCommentLists(response.data.comments)
 			} else {
 				alert("Failed to get video Info")
@@ -55,7 +55,16 @@ function VideoDetailPage(props) {
 							controls
 						></video>
 
-						<List.Item actions={[subscribeButton]}>
+						<List.Item
+							actions={[
+								<LikeDislikes
+									video
+									videoId={videoId}
+									userId={localStorage.getItem("userId")}
+								/>,
+								subscribeButton,
+							]}
+						>
 							<List.Item.Meta
 								avatar={<Avatar src={Video.writer && Video.writer.image} />}
 								title={Video.title}
