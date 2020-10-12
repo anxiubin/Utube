@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Typography, Button, Form, message, Input } from "antd"
 import { PlusCircleOutlined } from "@ant-design/icons"
 import Dropzone from "react-dropzone"
@@ -37,8 +37,6 @@ function UploadVideoPage(props) {
 	}
 
 	const handleChangeDecsription = (event) => {
-		console.log(event.currentTarget.value)
-
 		setDescription(event.currentTarget.value)
 	}
 

@@ -22,12 +22,12 @@ function SubscriptionPage() {
 			})
 	}, [])
 
-	const renderCards = Videos.map((video, index) => {
+	const renderCards = Videos.map((video) => {
 		let minutes = Math.floor(video.duration / 60)
 		let seconds = Math.floor(video.duration - minutes * 60)
 
 		return (
-			<Col lg={6} md={8} xs={24}>
+			<Col key={video._id} lg={6} md={8} xs={24}>
 				<div style={{ position: "relative" }}>
 					<a href={`/video/${video._id}`}>
 						<img

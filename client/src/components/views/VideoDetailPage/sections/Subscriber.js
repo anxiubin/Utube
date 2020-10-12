@@ -74,6 +74,8 @@ function Subscriber(props) {
 					fontWeight: "500",
 					fontSize: "1rem",
 					textTransform: "uppercase",
+					cursor: "pointer",
+					border: "none",
 				}}
 			>
 				{SubscribeNumber} {Subscribed ? "Subscribed" : "Subscribe"}
